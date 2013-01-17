@@ -1,0 +1,3 @@
+#!/bin/sh
+echo TOP=`pwd` > config.local
+echo OUT=`pwd`/out >> config.local
