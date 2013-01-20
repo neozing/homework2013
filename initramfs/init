@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Mount things needed by this script
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+
+# Create device nodes
+mdev -s
+
+# Function for parsing command line options with "=" in them
+# get_opt("root=/dev/sda") will return "/dev/sda"
+get_opt() {
+        echo "$@" | cut -d "=" -f 2
+}
+
+# init and root defaults
+init=/sbin/init
+root=/dev/sda1
+
+# Override default values if kernel command line has definitions
+for i in `cat /proc/cmdline` ; do
+        case $i in
+        root=*)
+                root=`get_opt $i`;;
+	init=*)
+                init=`get_opt $i`;;
+	esac
+done
+
+# Mount the root device
+mount $root /newroot
+
+# Check if init exists and is executable
+if [ -x /newroot/$init ] ; then
+    # unmount all other mounts so that the ram used by
+    # the initramfs can be cleared after switch_root
+    umount /sys /proc
+    # switch to the new root and execute init
+    exec switch_root /newroot $init
+fi
+
+# This will only be run if the exec above failed
+echo "Failed to chroot, dropping to a shell"
+exec sh
