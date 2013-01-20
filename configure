@@ -1,3 +1,32 @@
 #!/bin/sh
-echo TOP=`pwd` > config.local
-echo OUT=`pwd`/out >> config.local
+
+folder_list=$(cat << EOF
+out
+config
+kernel
+rootfs
+initramfs
+busybox
+tarballs
+out/kernel
+out/bootloader
+out/rootfs
+out/initramfs
+out/busybox
+out/target/image
+out/target/rootfs
+out/target/initramfs
+out/target/fs
+out/target/fs/boot
+EOF
+)
+
+> config.local
+echo TOP=`pwd` >> config.local
+for folder in ${folder_list}
+do
+	upper_folder=`echo $folder | tr '[a-z/]' '[A-Z_]'`
+	echo $upper_folder=`pwd`/$folder >> config.local
+done
+>> config.local
+echo include `pwd`/config/def_config >> config.local

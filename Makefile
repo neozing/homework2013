@@ -11,7 +11,7 @@ COMS := out
 CLEAN_OUT_REAL = clean-out-real
 
 # include in build order
-include kernel/makefile
+include kernel/Makefile
 
 everything: $(COMS)
 	@echo $@
@@ -22,7 +22,7 @@ clean-test:
 
 out:
 	@echo $@
-	@mkdir -p $(OUT)
+	@mkdir -p $(OUT) $(OUT_TARGET_FS_BOOT) $(OUT_TARGET_IMAGE)
 
 clean-out:
 
