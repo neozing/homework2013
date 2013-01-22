@@ -12,7 +12,9 @@ CLEAN_OUT_REAL = clean-out-real
 
 # include in build order
 include kernel/Makefile
-
+include bootloader/grub/Makefile
+include busybox/Makefile
+include initramfs/Makefile
 everything: $(COMS)
 	@echo $@
 
@@ -21,7 +23,6 @@ test:
 clean-test:
 
 out:
-	@echo $@
 	@mkdir -p $(OUT) $(OUT_TARGET_FS_BOOT) $(OUT_TARGET_IMAGE)
 
 clean-out:

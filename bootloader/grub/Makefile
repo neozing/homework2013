@@ -24,8 +24,9 @@ $(OUT_BOOTLOADER)/Makefile: $(GRUB_TARBALL)
 
 .PHONY: real-grub
 real-grub: $(OUT_BOOTLOADER)/Makefile
-	@(cd $(OUT_BOOTLOADER)/; ./configure)
+	@(cd $(OUT_BOOTLOADER)/; ./configure --prefix=$(OUT_TARGET_BOOT_INSTALL))
 	@make -C $(OUT_BOOTLOADER)
+	@make -C $(OUT_BOOTLOADER) install
 	@echo $@
 
 clean-grub:

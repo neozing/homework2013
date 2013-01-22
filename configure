@@ -7,12 +7,14 @@ kernel
 rootfs
 initramfs
 busybox
+package
 tarballs
 out/kernel
 out/bootloader
 out/rootfs
 out/initramfs
 out/busybox
+out/target/boot_install
 out/target/image
 out/target/rootfs
 out/target/initramfs

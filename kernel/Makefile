@@ -20,11 +20,12 @@ $(OUT_KERNEL)/Makefile: $(K_TARBALL)
 	@tar xjf $(K_TARBALL) --strip-components 1 -C $(OUT_KERNEL)
 
 $(OUT_KERNEL)/.config: $(OUT_KERNEL)/Makefile
-	@make -C $(OUT_KERNEL) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) defconfig
+	@cp $(KERNEL)/2m_config $(OUT_KERNEL)/.config
+	#@make -C $(OUT_KERNEL) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) defconfig
 
 .PHONY: kernel
 kernel: $(OUT_KERNEL)/.config
-	@make -C $(OUT_KERNEL) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE)
+	@make -C $(OUT_KERNEL) -j8 ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE)
 	@cat $(OUT_KERNEL)/arch/x86/boot/bzImage > $(OUT_TARGET_FS_BOOT)/vmlinuz
 	@echo $@
 
