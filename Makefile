@@ -15,6 +15,9 @@ include kernel/Makefile
 include bootloader/grub/Makefile
 include busybox/Makefile
 include initramfs/Makefile
+include rootfs/Makefile
+include package/Makefile
+
 everything: $(COMS)
 	@echo $@
 

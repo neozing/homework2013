@@ -56,6 +56,8 @@ EOF
 # copy kernel, initramfs
 sudo cp ${boot_input}/* ${temp_dir}/boot
 
+sudo touch ${temp_dir}/.`date +%Y%m%d_%H%M%S`
+
 # unmount, detach loop devices
 sudo umount ${temp_dir}
 sudo losetup -d ${loop_disk} ${loop_dev}

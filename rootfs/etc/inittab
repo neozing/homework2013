@@ -1,4 +1,5 @@
 ::sysinit:/etc/init.d/rcS
-::respawn:-/bin/sh
-tty2::askfirst:-/bin/sh
+tty1::respawn:/sbin/getty -L 38400 tty1
+tty2::respawn:/sbin/getty -L 38400 tty2
+#tty2::askfirst:/bin/sh
 ::ctrlaltdel:/bin/umount -a -r
